@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+// import TaskNew from "./components/task_new";
+// import TaskList from './components/task_list';
+import TaskNew from './components/task_new';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <TaskNew />
   </React.StrictMode>
 );
 
