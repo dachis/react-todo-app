@@ -1,56 +1,39 @@
-import React, { useMemo, useContext } from "react";
-import { useTable, useSortBy } from "react-table";
+import React, { useContext } from "react";
 
-import { TaskContext } from "./task_new";
+import { TaskContext } from "./home";
 
 function TaskList() {
-  const { tasks } = useContext(TaskContext)
-  console.log(tasks.length)
+  const { tasks, setTasks } = useContext(TaskContext);
 
-  const columns = useMemo(
-      () => [
-          { Header: "deadline", accessor: "deadline" },
-          { Header: "task_state", accessor: "task_state" },
-          { Header: "content", accessor: "content" }
-      ],
-      []
-  );
-
-  const data = useMemo(
-      () => tasks,
-      []
-  );
-
-  const {
-      getTableProps,
-      getTableBodyProps,
-      headerGroups,
-      rows,
-      prepareRow
-  } = useTable({
-      columns,
-      data
-  });
+  const handleClick = (e, id) => {
+    let task_history = tasks.filter((task) => {
+      return (task.id != id)
+    })
+    setTasks([...task_history])
+  }
 
   const renderTasks = () => {
-    return tasks.map((currentTask, index) => {
+    return tasks.map((currentTask) => {
+      console.log(currentTask)
       return (
-        <tr key={index}>
+        <tr key={currentTask.id}>
           <td>{currentTask.deadline}</td>
           <td>{currentTask.task_state}</td>
           <td>{currentTask.content}</td>
+          <td><button onClick={e => handleClick(e, currentTask.id)}>delete</button></td>
         </tr>
       )
     })
   }
 
   return (
-    <table>
+    <table border="1">
       <thead>
         <tr>
           <th>deadline</th>
           <th>task_state</th>
           <th>content</th>
+          <th>⚙</th>
         </tr>
       </thead>
 
